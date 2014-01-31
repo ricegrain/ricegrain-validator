@@ -11,6 +11,7 @@ namespace RiceGrain;
 use RiceGrain\ValidatorTest\Validation\BooleanValidation;
 use RiceGrain\ValidatorTest\Validation\ChoiceValidation;
 use RiceGrain\ValidatorTest\Validation\EmailValidation;
+use RiceGrain\ValidatorTest\Validation\ExternalValueUsageValidation;
 use RiceGrain\ValidatorTest\Validation\FileValidation;
 use RiceGrain\ValidatorTest\Validation\FilteringValidation;
 use RiceGrain\ValidatorTest\Validation\FutureDateValidation;
@@ -491,6 +492,31 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('b', $resultSuccessValue->getField2());
         $this->assertNull($resultSuccessValue->getField3());
         $this->assertNull($resultSuccessValue->getField4());
+    }
+
+    public function 外部からの値()
+    {
+        return array(
+            array('123456', true,  0),
+            array('12345',  false, 1),
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider 外部からの値
+     */
+    public function 外部からの値とをチェックする($externalValue, $expectedResult, $expectedErrorCount)
+    {
+        $_REQUEST['string_value'] = '123456';
+
+        $options = array('regexString' => $externalValue);
+
+        $validator = new Validator();
+        $result = $validator->validate(new ExternalValueUsageValidation($options));
+
+        $this->assertEquals($expectedResult, $result, var_export($validator->getErrors(), true));
+        $this->assertEquals($expectedErrorCount, count($validator->getErrors()));
     }
 }
 

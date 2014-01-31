@@ -22,6 +22,11 @@ use RiceGrain\Validator\Request;
 abstract class Validation
 {
     /**
+     * @var array
+     */
+    protected $options = array();
+
+    /**
      * @var \RiceGrain\Validator\Error
      */
     private $error;
@@ -34,9 +39,10 @@ abstract class Validation
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(array $options = array())
     {
         $this->error = new Error();
+        $this->options = $options;
     }
 
     /**
