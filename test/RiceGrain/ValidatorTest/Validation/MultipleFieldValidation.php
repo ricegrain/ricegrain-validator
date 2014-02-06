@@ -19,12 +19,12 @@ class MultipleFieldValidation extends Validation
     {
         if ($name == 'phone') {
             if (!$this->isEmpty($value)) {
-                $this->addRemoveRequiredField('mobile_phone');
+                $this->addRequiredRemoveField('mobile_phone');
             }
         }
         if ($name == 'mobile_phone') {
             if (!$this->isEmpty($value)) {
-                $this->addRemoveRequiredField('phone');
+                $this->addRequiredRemoveField('phone');
             }
         }
 

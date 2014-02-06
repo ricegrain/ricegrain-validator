@@ -86,7 +86,7 @@ abstract class Validation
      *
      * @param string $name
      */
-    final protected function addRemoveRequiredField($name)
+    final protected function addRequiredRemoveField($name)
     {
         $this->requiredRemoveFields[] = $name;
     }
